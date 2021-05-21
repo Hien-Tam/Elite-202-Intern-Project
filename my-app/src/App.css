@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: lightblue;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,17 +22,30 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding-block: 80px;
 }
 
-.App-link {
-  color: #61dafb;
+.leftsidestuff {
+  background-color: lightcyan;
+  color: black;
+  border-style: double;
+  border-color: darkolivegreen;
+  font-size: large;
+  font-family: fangsong;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button {
+  color: dodgerblue;
+  background-color: white;
+  border-style: dashed;
+  margin: 5px;
+}
+
+.header {
+  text-shadow: 0 0 5px black;
+}
+
+.Evolution {
+  text-decoration: underline;
+  cursor: pointer;
 }

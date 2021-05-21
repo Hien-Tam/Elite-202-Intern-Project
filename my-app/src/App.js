@@ -1,7 +1,10 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Searchbar from "./searchbar";
 import { useState } from "react";
+import LanguageSearcher from "./Languagesearcher";
+import PokeButts from "./pokebutts";
+import Evolution from "./Evolution";
+import LanguageList from "./List";
 
 function App() {
   const [Pokemon_search, setPokemon_search] = useState();
@@ -50,111 +53,37 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h1>Butt Pokedex</h1>
-        </a>
-
-        <Searchbar
-          setPokemon_search={setPokemon_search}
-          Pokemon_search={Pokemon_search}
-          getPokemonData={getPokemonData}
-        />
-        <p>Number: {pokemonData?.id}</p>
-        <img src={pokemonData?.sprites?.back_default} alt="logo" />
-        {
-          <ul>
-            {PokemonSpeciesData?.names?.map((nameEntry) => {
-              return (
-                <li key={nameEntry.language.name}>
-                  {nameEntry.language.name} : {nameEntry.name}
-                </li>
-              );
-            })}
-          </ul>
-        }
-        <select onChange={(e) => setLanguage(e.target.value)}>
-          <option value="en">English</option>
-          <option value="ja-Hrkt">Japanese (no kanji)</option>
-          <option value="ko">Korean</option>
-          <option value="fr">French</option>
-          <option value="de">German</option>
-          <option value="es">Spanish</option>
-          <option value="it">Italian</option>
-          <option value="ja">Japanese</option>
-          <option value="zh-Hans">Chinese (simplified)</option>
-        </select>
+      
+          <h1 className="header"> Butt Pokedex </h1>
+          {pokemonData && (
+            <><div className="leftsidestuff">
+    
+    <p>Number: {pokemonData?.id}</p>
+    <PokeButts pokemonData={pokemonData} />
+    </div></>)}
+          
+        <LanguageList PokemonSpeciesData={PokemonSpeciesData} />
+    
+        <LanguageSearcher setLanguage={setLanguage} />
         <div className="name">
           <div>
             <h3>
               {
                 (PokemonSpeciesData?.names.find(
                   ({ language }) => language.name === Language
-                )).name
+                ))?.name
               }
             </h3>
           </div>
         </div>
-        {
-          <p>
-            <button
-              onClick={() => getPokemonData(false, firstEvolutionPokeName)}
-            >
-              EVOLUTION CHAIN
-            </button>{" "}
-            {firstEvolutionPokeName}
-          </p>
-        }
-        {secondEvolutionPokeName?.length > 0 && (
-          <>
-            <p>
-              <ul>
-                {secondEvolutionPokeName?.map((evolvesto) => {
-                  return (
-                    <li
-                      onClick={() =>
-                        getPokemonData(false, evolvesto.species.name)
-                      }
-                    >
-                      {evolvesto.species.name}
-                    </li>
-                  );
-                })}
-              </ul>
-              {secondEvolutionPokeName[0]?.evolves_to?.length > 0 && (
-                <>
-                  <p>
-                    <ul>
-                      {secondEvolutionPokeName?.map((evolvesto) => {
-                        return (
-                          <>
-                            {evolvesto.evolves_to?.map((evolvestoto) => (
-                              <li
-                                onClick={() =>
-                                  getPokemonData(
-                                    false,
-                                    evolvestoto?.species?.name
-                                  )
-                                }
-                              >
-                                {evolvestoto?.species?.name}
-                              </li>
-                            ))}
-                          </>
-                        );
-                      })}
-                    </ul>
-                  </p>
-                </>
-              )}
-            </p>
-          </>
-        )}
+        {pokemonData && (<>
+        <div><Evolution getPokemonData={getPokemonData} firstEvolutionPokeName={firstEvolutionPokeName} secondEvolutionPokeName={secondEvolutionPokeName}/></div>
+        </>)}
+        <Searchbar
+          setPokemon_search={setPokemon_search}
+          Pokemon_search={Pokemon_search}
+          getPokemonData={getPokemonData}
+        />
       </header>
     </div>
   );
